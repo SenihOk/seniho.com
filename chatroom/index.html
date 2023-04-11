@@ -2,12 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatroom</title>
-    <link rel="stylesheet" href="css/stylesheet" type="text/css">
+    <title>Chatroom Signup/Login</title>
+    <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 <body>
-    
+    <header>
+        <h1>Welcome to the Chatroom</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Signup</h2>
+            <form action="/signup" method="POST">
+                <label for="username_signup">Username:</label>
+                <input type="text" id="username_signup" name="username" required>
+                <br>
+                <label for="email_signup">Email:</label>
+                <input type="email" id="email_signup" name="email" required>
+                <br>
+                <label for="password_signup">Password:</label>
+                <input type="password" id="password_signup" name="password" required>
+                <br>
+                <input type="submit" value="Signup">
+            </form>
+        </section>
+        <section>
+            <h2>Login</h2>
+            <form action="/login" method="POST">
+                <label for="username_login">Username:</label>
+                <input type="text" id="username_login" name="username" required>
+                <br>
+                <label for="password_login">Password:</label>
+                <input type="password" id="password_login" name="password" required>
+                <br>
+                <input type="submit" value="Login">
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>Chatroom &copy; 2023. All rights reserved.</p>
+    </footer>
 </body>
 </html>
