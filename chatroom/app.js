@@ -20,8 +20,13 @@ app.use(bodyParser.urlencoded({extended:false}));
 //the path to the directory where app.js is located.
 app.use(express.static(path.join(__dirname, 'public')));
 
+//sends the index file for the chatroom page when a user signs up.
+app.get('/chatroom/signup', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 //defining the /signup endpoint
-app.post('/signup', (req, res) => {
+app.post('/chatroom/signup', (req, res) => {
     const {username, email, password } = req.body;
 
     bcrypt.hash(password, saltRounds, (err, hash) => {
@@ -30,10 +35,14 @@ app.post('/signup', (req, res) => {
 
         const query = 'INSERT INTO accounts (username, email, password) VALUES (?,?,?)';
         createUser(username, email, hash, (err, result) => {
-            if(err) throw err;
-
+            if(err) {
+                console.error(err); 
+                res.status(500).json({ status: 'error', message: 'Failed to create account.' });
+                return;
+            }
+            
             console.log('Account created:', result)
-            res.redirect('/');
+            res.status(200).json({ status: 'success', message: 'Account created successfully!' });
         });
 
 
@@ -42,7 +51,7 @@ app.post('/signup', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT,() => {
-    console.log('Server is running on port ${PORT}');
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
 
